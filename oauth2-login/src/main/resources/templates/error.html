@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Spring Authorization Server sample</title>
+    <link href="/webjars/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.css}"/>
+    <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    oauth-login => error.html
+        <div th:if="${param.errorMessage}" class="alert alert-danger" role="alert">
+            [[${param.errorMessage}]]
+        </div>
+</div>
+</body>
+</html>

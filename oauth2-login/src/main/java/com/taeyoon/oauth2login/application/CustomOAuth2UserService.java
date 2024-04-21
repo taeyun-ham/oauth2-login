@@ -30,23 +30,17 @@ import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.client.UnknownContentTypeException;
 
-import com.taeyoon.oauth2login.infra.configuration.exception.MemberNotFoundAuthenticationException;
+import com.taeyoon.oauth2login.infra.configuration.exception.MemberNotFoundException;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
-
-
 	private static final String MISSING_USER_INFO_URI_ERROR_CODE = "missing_user_info_uri";
-
 	private static final String MISSING_USER_NAME_ATTRIBUTE_ERROR_CODE = "missing_user_name_attribute";
-
 	private static final String SIGN_UP = "missing_sign_up";
-
 	private static final String INVALID_USER_INFO_RESPONSE_ERROR_CODE = "invalid_user_info_response";
-
 	private static final ParameterizedTypeReference<Map<String, Object>> PARAMETERIZED_RESPONSE_TYPE = new ParameterizedTypeReference<Map<String, Object>>() {
 	};
 
@@ -68,7 +62,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 				"회원가입 유도 "
 					+ userRequest.getClientRegistration().getRegistrationId(),
 				null);
-			throw new MemberNotFoundAuthenticationException(oauth2Error, oauth2Error.toString());
+			throw new MemberNotFoundException(oauth2Error, oauth2Error.toString());
 		}
 		if (!StringUtils.hasText(userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUri())) {
 			OAuth2Error oauth2Error = new OAuth2Error(MISSING_USER_INFO_URI_ERROR_CODE,

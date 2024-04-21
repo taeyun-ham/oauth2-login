@@ -28,8 +28,16 @@ spring:
             client-secret: ${NAVER_CLIENT_SECRET}
             redirect-uri: ${NAVER_REDIRECT_URI}
             authorization-grant-type: authorization_code
-            client-name: Naver
             scope: name, email
+            client-name: Naver
+          andalos:
+            client-id: andalos
+            client-secret: andalos1234
+            redirect-uri: http://oauth2-login.andalos.com:9010/login/oauth2/code/andalos
+            client-authentication-method: client_secret_post
+            authorization-grant-type: authorization_code
+            scope: profile
+            client-name: Andalos
         provider:
           kakao:
             authorization-uri: https://kauth.kakao.com/oauth/authorize
@@ -41,6 +49,11 @@ spring:
             token-uri: https://nid.naver.com/oauth2.0/token
             user-info-uri: https://openapi.naver.com/v1/nid/me
             user-name-attribute: response
+          andalos:
+            authorization-uri: http://oauth2-server.andalos.com:9000/oauth2/authorize
+            token-uri: http://oauth2-server.andalos.com:9000/oauth2/token
+            user-info-uri: http://oauth2-server.andalos.com:9000/connect/userinfo
+            user-name-attribute: id
   data:
     redis:
       host: ${REDIS_HOST}
@@ -48,11 +61,13 @@ spring:
       port: ${REDIS_PORT}
   session:
     timeout: 3600
+    redis:
+      namespace: spring:session:oauth2-login
 
 
 logging:
   level:
-    root: debug
-    org.springframework.web: debug
-    org.springframework.security: debug
-    org.springframework.security.oauth2: debug
+    root: trace
+    org.springframework.web: trace
+    org.springframework.security: trace
+    org.springframework.security.oauth2: trace
