@@ -62,7 +62,7 @@ spring:
   session:
     timeout: 3600
     redis:
-      namespace: spring:session:oauth2-login
+      namespace: auth2-login:session
 
 
 logging:
